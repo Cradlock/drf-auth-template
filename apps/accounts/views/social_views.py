@@ -20,7 +20,7 @@ from apps.accounts.exceptions import (
 class GoogleAuthView(APIView):
     
 
-    def get(self,request):
+    async def get(self,request):
         redirect_uri = request.GET.get("redirect_uri",None)
         if redirect_uri is None:
             raise DontSendRedirectUri()

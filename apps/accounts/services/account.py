@@ -37,7 +37,7 @@ def create_user(
     *,
     email : str,
     password : str,
-    role : str = User.roles.client,
+    role : str = User.Roles.client,
     is_active : bool = True,
     first_name : str = "",
     last_name : str = ""

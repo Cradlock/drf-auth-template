@@ -6,6 +6,7 @@ from .account import (
     create_user,
     update_user_password,
     activate_user,
+    get_or_create_user 
 )
 
 from .token import (
@@ -15,7 +16,7 @@ from .token import (
 
 from .social_google import (
     generate_google_redirect,
-    get_data,get_or_create_user,
+    get_data,
     decode_email_id_token
 )
 
