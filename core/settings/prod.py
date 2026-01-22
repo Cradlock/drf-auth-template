@@ -69,6 +69,12 @@ CSRF_COOKIE_SAMESITE = 'None'
 
 
 
+REFRESH_TOKEN_PARAMETERS = {
+    "httponly":True,
+    "secure":True,
+    "samesite":"None"
+}
+
 
 
 

@@ -4,6 +4,7 @@ from apps.accounts.managers import AccountManager
 
 
 
+
 # Файл для базового пользователя
 class Account(AbstractBaseUser,PermissionsMixin):
     class Roles(models.TextChoices):

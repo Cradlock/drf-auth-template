@@ -27,6 +27,17 @@ REDIS_DB_BACKEND = 0
 REDIS_DB_BROKER = 1
 REDIS_DB_CACHE = 2
 
+# Настройка email 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = os.getenv("EMAIL_HOST",587)
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS",True)
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
+
+
 # Настройки базы данных
 DB_HOST = os.getenv("DB_HOST","localhost")
 DB_NAME = os.getenv("DB_NAME","project")
@@ -53,6 +64,7 @@ INSTALLED_APPS = [
 
     # Для создания API
     'rest_framework',
+    'rest_framework.authtoken',
     
     # Приложение для JWT
     'rest_framework_simplejwt',
@@ -65,6 +77,9 @@ INSTALLED_APPS = [
 
     # Для веб сокетов
     'channels',
+    
+    # Фоновые задачи
+    'django_celery_beat',
 
     # мои приложени
     'apps.base', # Дополнительные функции которые используются во всех приложениях
@@ -88,11 +103,14 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'core.urls'
 
 
+# Дефолтное primary key
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 # Работа с html шаблонами
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -148,6 +166,8 @@ USE_I18N = True
 # Нужен для работы с часовми поясами
 USE_TZ = True
 
+# Фоновые задачи 
+CELERY_ENABLE_UTC = True
 
 # Настройка статических файлов
 STATIC_URL = '/static/'
@@ -223,6 +243,9 @@ SIMPLE_JWT = {
     
     "TOKEN_USER_CLASS": "rest_framework_simplejwt.models.TokenUser"
 }
+
+
+
 
 
 

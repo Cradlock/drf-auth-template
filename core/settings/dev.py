@@ -5,7 +5,9 @@ from .base import *
 DEBUG = True
 
 # Доступные хосты
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost","127.0.0.1"
+]
 
 # Настройка паролей
 AUTH_PASSWORD_VALIDATORS = []
@@ -42,6 +44,14 @@ SESSION_COOKIE_SAMESITE = 'Strict'
 CSRF_COOKIE_SAMESITE = 'Strict'
 
 
+
+
+
+REFRESH_TOKEN_PARAMETERS = {
+    "httponly":True,
+    "secure":False,
+    "samesite":"Strict"
+}
 
 
 
