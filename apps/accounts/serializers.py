@@ -60,3 +60,17 @@ class ChangePasswordSerializer(serializers.Serializer):
 
 
 
+class RepeatEmailSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    frontend_domain = serializers.URLField()
+
+
+
+class LoginSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField(
+        write_only=True    
+    )
+
+
+

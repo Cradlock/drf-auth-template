@@ -30,17 +30,21 @@ from apps.accounts.selectors import get_user_by_id
 # Логин
 class LoginAPIView(APIView):
     permission_classes = [AllowAny,]
+    def post(self, request, *args, **kwargs):
+        serializer = LoginSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
-    def post(self,request, *args, **kwargs):
-        email = request.data.get("email")
-        password = request.data.get("password")
+        user = authenticate(
+            request,
+            email=serializer.validated_data["email"],
+            password=serializer.validated_data["password"]
+        )
 
-        user = authenticate(request, email=email, password=password)
         if not user:
-            raise UnauthorizedException()       
-        
+            raise UnauthorizedException()
+
         response = Response()
-        return issue_jwt_tokens(user,response)
+        return issue_jwt_tokens(user, response)
 
 
 # Получение access токена

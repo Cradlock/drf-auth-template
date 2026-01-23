@@ -81,7 +81,10 @@ class UserNotFound(APIException):
     default_detail = "Пользователь не найден"
     default_code = "user_not_found"
 
-
+class EmailAndFrontendDomainRequired(APIException):
+    status_code = status.HTTP_400_BAD_REQUEST 
+    default_detail = "Email и Frontend Domain обязятельный"
+    default_code = "email_frontdomain_required"
 
 
 

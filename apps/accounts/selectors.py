@@ -14,8 +14,12 @@ def get_user_by_id(uid) -> User:
 
 
 
+def get_user_by_email(email) -> User:
+    try:
 
-
+        return User.objects.get(email=email)
+    except (ValueError,TypeError,User.DoesNotExists):
+        raise UserNotFound()
 
 
 
