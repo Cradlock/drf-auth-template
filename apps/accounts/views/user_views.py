@@ -10,7 +10,8 @@ from apps.accounts.serializers import (
     ChangePasswordSerializer,
     GetUserSerializer,
     RenameUserSerializer,
-    RegisterUserSerializer 
+    RegisterUserSerializer,
+    RepeatEmailSerializer 
 )
 
 from apps.accounts.services import (
@@ -98,7 +99,7 @@ class AccountViewSet(viewsets.ViewSet):
         user = get_user_by_email(serializer.validated_data["email"])
         activate_url = generate_link_for_active_user(
             user=user,
-            domain=serializer.validated_data["frontend_domain"]
+            domain=serializer.validated_data["frontend_url"]
         )
         email = user.email 
 

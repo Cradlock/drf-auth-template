@@ -60,17 +60,6 @@ class TokenExpiredException(APIException):
     default_detail = "Токен истёк"
     default_code = "token_expired"
 
-
-class DontSendRedirectUri(APIException):
-    status_code = status.HTTP_400_BAD_REQUEST 
-    default_detail = "Не отправлен redirect_uri"
-    default_code = "not_redirect_uri"
-
-class MissingCodeOrRedirectUri(APIException):
-    status_code = status.HTTP_400_BAD_REQUEST
-    default_detail = "Не передан 'code' или 'redirect_uri'"
-    default_code = "missing_code_or_redirect_uri"
-
 class MissingUidbOrToken(APIException):
     status_code = status.HTTP_400_BAD_REQUEST 
     default_detail = "Не передан 'token' или 'uidb64' "

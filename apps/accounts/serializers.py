@@ -62,7 +62,7 @@ class ChangePasswordSerializer(serializers.Serializer):
 
 class RepeatEmailSerializer(serializers.Serializer):
     email = serializers.EmailField()
-    frontend_domain = serializers.URLField()
+    frontend_url = serializers.URLField()
 
 
 
@@ -71,6 +71,14 @@ class LoginSerializer(serializers.Serializer):
     password = serializers.CharField(
         write_only=True    
     )
+
+class GetGoogleRedirectSerializer(serializers.Serializer):
+    redirect_uri = serializers.URLField()
+
+
+class GoogleLoginSerializer(serializers.Serializer):
+    code = serializers.CharField()
+    redirect_uri = serializers.URLField() 
 
 
 

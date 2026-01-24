@@ -12,8 +12,10 @@ from apps.accounts.services import (
 
 from rest_framework import status 
 
-from apps.accounts.exceptions import (
-    DontSendRedirectUri,MissingCodeOrRedirectUri  
+
+from apps.accounts.serializers import (
+    GetGoogleRedirectSerializer,
+    GoogleLoginSerializer 
 )
 
 
@@ -21,31 +23,31 @@ class GoogleAuthView(APIView):
     
 
     async def get(self,request):
-        redirect_uri = request.GET.get("redirect_uri",None)
-        if redirect_uri is None:
-            raise DontSendRedirectUri()
-
+        
+        seriliazer = GetGoogleRedirectSerializer(data=request.query_params)
+        seriliazer.is_valid(raise_exception=True)
+        
+        redirect_uri = seriliazer.validated_data["redirect_uri"] 
         rurl = generate_google_redirect(redirect_uri)
         return Response(
             {"redirect_uri":rurl},status=status.HTTP_200_OK
         )
 
     async def post(self,request):
-        code = request.data.get("code",None)
-        redirect_uri = request.data.get("redirect_uri",None)
 
-        if not code or not redirect_uri:
-            raise MissingCodeOrRedirectUri()
+        serializer = GoogleLoginSerializer(data=request.data)
+        
+        serializer.is_valid(raise_exception=True)
+
+        code = serializer.validated_data.get("code",None)
+        redirect_uri = serializer.validated_data.get("redirect_uri",None)
         
         data = await get_data(code,redirect_uri)
         email = decode_email_id_token(data)
+        
         user = get_or_create_user(email)
         response = Response()
         return issue_jwt_tokens(user,response)
-
-
-
-
 
 
 
